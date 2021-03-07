@@ -66,7 +66,7 @@
                         alert("제목을 입력해주세요.");
                         f.title.focus();
                         return false;
-                    }   
+                    }
 
                     if (!f.content.value.trim() ) {
                         alert("내용을 입력해주세요.");
@@ -88,6 +88,15 @@
                     }
                     <?php } ?>
                 }
+
+                $('#title').on('keyup', function() {
+                    var byte = 150;
+                    var str = $(this).val();
+                    if ( byte < CalcByte.getByteLength(str) ) {
+                        alert("제목은 150 Byte를 넘을 수 없습니다.");
+                        $(this).val(CalcByte.cutByteLength(str, byte));
+                    }
+                });
             </script>
 
 <?php require_once("../footer.php"); ?>

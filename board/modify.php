@@ -91,6 +91,15 @@
                         $(this).closest("li").remove();
                     };
                 });
+
+                $('#title').on('keyup', function() {
+                    var byte = 150;
+                    var str = $(this).val();
+                    if ( byte < CalcByte.getByteLength(str) ) {
+                        alert("제목은 150 Byte를 넘을 수 없습니다.");
+                        $(this).val(CalcByte.cutByteLength(str, byte));
+                    }
+                });
             </script>
 
 <?php require_once("../footer.php"); ?>
