@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+/* 부트스트랩 커스텀 */
+.text-break {word-break: keep-all !important;}
+
+/* 로그인 */
+.login-card {width: 350px;position: absolute;top: 50%; left: 50%; transform: translate(-50%, -50%);}
+
+/* 회원가입 */
+.register-card {width: 500px;position: absolute;top: 50%; left: 50%; transform: translate(-50%, -50%);}
+
+/* 댓글 */
+.reply-form textarea {resize: 0; height:60px; resize: none;}
+.reply-form button {width: 120px;}
+#reply_list .name, 
+#reply_list .rdate { margin-right: 20px; }
+#reply_list + small { margin-top: 10px; }
