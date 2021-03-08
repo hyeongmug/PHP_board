@@ -7,11 +7,11 @@
         <div class="card-body">
             <form action="login_action.php" id="login_form" method="post" onsubmit="return login_check(this)">
                 <div class="form-group mb-3 d-flex">
-                    <label for="id" class="col-3">아이디</label>
+                    <label for="id" class="col-4">아이디</label>
                     <input type="text" name="id" id="id" class="form-control" placeholder="아이디 입력">
                 </div>
                 <div class="form-group mb-3 d-flex">
-                    <label for="pwd" class="col-3">비밀번호</label>
+                    <label for="pwd" class="col-4">비밀번호</label>
                     <input type="password" name="pwd" id="pwd" class="form-control" placeholder="비밀번호 입력">
                 </div>
 

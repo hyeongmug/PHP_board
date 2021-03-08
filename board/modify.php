@@ -29,6 +29,11 @@
     $files = fetchAll("SELECT fno, file_name, real_name, reg_date FROM file WHERE bno = ?", [$bno]);
 ?>
             <form action="modify_action.php" method="post" id="baord_form" onsubmit="return form_check(this);">
+
+                <?php  if (isset($_SESSION['board_pwd']) && $_SESSION['board_pwd'] != "") { ?>
+                <input type="hidden" name="bpwd" value="<?php echo $_SESSION['board_pwd'] ?>">
+                <?php } ?>
+
                 <input type="hidden" name="bno" value="<?php echo $bno ?>">
 
                 <div class="form-group mb-3">

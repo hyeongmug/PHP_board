@@ -16,7 +16,9 @@
         move();
         exit;
     }
-    //var_dump($result);
+    
+    // 댓글 수
+    $reply_count = fetch("SELECT COUNT(*) cnt FROM reply WHERE bno = ?", [$bno])->cnt; 
 
     // 파일 가져오기
     $files = fetchAll("SELECT file_name, real_name, reg_date FROM file WHERE bno = ?", [$bno]);
@@ -36,12 +38,10 @@
             </div>
             <div class="form-group mb-3">
                 <div class="text-break">
-                <?php echo $result->content ?>
+                <?php echo nl2br($result->content); ?>
                 </div>
             </div>
 
-
-                
                 <?php
                 if ($files) {
                     echo '<div class="form-group mb-3">';
@@ -71,7 +71,7 @@
 
             <div class="card mt-5">
                 <div class="card-header">
-                    <h6 class="mt-2"><strong>댓글</strong></h6>
+                    <h6 class="mt-2"><strong>댓글</strong> <span class="badge bg-secondary text-white"><?php echo $reply_count ?></span></h6>
                 </div>
                 <div class="card-body">
                     <ul class="list-group" id="reply_list"></ul>

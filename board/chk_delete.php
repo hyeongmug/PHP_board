@@ -9,6 +9,11 @@
     $sql = "DELETE FROM board WHERE bno = ?";
 
     foreach($chk as $bno) {
+        // 파일 삭제
+        $unlink_file = fetch("SELECT path, file_name FROM file WHERE bno = ?", [$bno]);
+        unlink($unlink_file->path."/".$unlink_file->file_name);
+
+        // 게시글 db에서 삭제
         query($sql, [$bno]);
     }
 

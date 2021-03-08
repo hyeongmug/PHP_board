@@ -11,7 +11,7 @@
         $grpord = $result->grpord + 1;
         $depth = $result->depth + 1;
 
-        query("UPDATE board SET grpord = grpord + 1 where grpord >1 and grpno = ?", [$grpno]);
+        query("UPDATE board SET grpord = grpord + 1 where grpord > ? and grpno = ?", [$result->grpord, $grpno]);
     } else {
         $grpno = $incbno;
         $grpord = 0;

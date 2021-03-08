@@ -8,11 +8,18 @@ $limit = 10; // 한페이지에 보여줄 리스트 수
 $bl = 10; // 페이지네이션 칸 수
 $offset = ($page - 1) * 10; // 불러올 게시글의 시작점
 
-$sql = "SELECT bno, title, IF(writer IS NULL OR writer = '', m.name, b.writer) writer, b.id, rdate, depth
-            FROM board b LEFT JOIN member m 
-            ON b.id = m.id
-            ORDER BY grpno DESC, grpord ASC
-            LIMIT ?, ?";
+$sql = "SELECT 
+            b.bno, 
+            title, 
+            (SELECT COUNT(*) cnt FROM file WHERE bno = b.bno) file_count, 
+            (SELECT COUNT(*) cnt FROM reply WHERE bno = b.bno) reply_count, 
+            IF(writer IS NULL OR writer = '', m.name, b.writer) writer, 
+            b.id, rdate, 
+            depth
+        FROM board b LEFT JOIN member m 
+        ON b.id = m.id
+        ORDER BY grpno DESC, grpord ASC
+        LIMIT ?, ?";
 $result = fetchAll($sql, [$offset, $limit]);
 
 // 페이지에 아무글도 없으면 list.php로 이동
@@ -33,6 +40,7 @@ if (isset($_GET["page"]) && count($result) == 0) {
                 <th scope="col">제목</th>
                 <th scope="col">작성자</th>
                 <th scope="col">작성일</th>
+                <th scope="col">첨부파일</th>
                 <?php if (isset($_SESSION['user_authority']) &&  $_SESSION['user_authority'] == "ADMIN" ) { ?>
                     <th scope="col">선택</th>
                 <?php } ?>
@@ -49,13 +57,18 @@ if (isset($_GET["page"]) && count($result) == 0) {
                             <?php if ($row->depth > 1) { ?>
                                 <i class="bi bi-arrow-return-right"></i>
                             <?php }
-                            echo $row->title
+                            echo $row->title;
                             ?>
                         </a>
+
+                        <?php echo $row->reply_count > 0 ? '<span class="badge badge-secondary">'.$row->reply_count.'</span>' : ''; ?>
                     </td>
                     <td><?php echo  $row->writer ?></td>
                     <td>
                         <?php echo  substr($row->rdate,0,10) ?>
+                    </td>
+                    <td>
+                        <?php echo $row->file_count > 0 ? '<i class="bi bi-file-earmark"></i><span class="badge badge-secondary">'.$row->file_count.'</span>' : ''; ?>
                     </td>
                     <?php if (isset($_SESSION['user_authority']) &&  $_SESSION['user_authority'] == "ADMIN" ) { ?>
                         <td><input type="checkbox" name="chk[]" value="<?php echo $row->bno ?>" list-chk></td>
