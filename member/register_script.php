@@ -9,7 +9,7 @@
         }   
 
         if (!ValidationCheck.id(f.id.value.trim()) ) {
-            alert("아이디를 형식이 맞지 않습니다. 영문+숫자 5~15");
+            alert("아이디 형식이 맞지 않습니다. 영문+숫자 5~15");
             f.id.focus();
             return false;
         }   
