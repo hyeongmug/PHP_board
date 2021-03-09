@@ -90,7 +90,7 @@
                 <a class="btn btn-success" href="write.php?bno=<?php echo $bno ?>&page=<?php echo $page ?>">답글</a>
                 <?php 
                 // 회원 글인 경우 작성자 아이디와 로그인 아이디를 비교,
-                // 비회원 글인 경우 로그아웃 상태일 때만 볼 수 있함. 
+                // 비회원 글인 경우 로그아웃 상태일 때만 볼 수 있게함. 
                 if (!isset($_SESSION['user_id']) && $result->bpwd || isset($_SESSION['user_id']) && $result->id == $_SESSION['user_id']) {
                     echo '<a href="modify.php?bno='.$bno.'" class="btn btn-warning" modify-btn>수정</a>';
                 }
